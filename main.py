@@ -6,7 +6,7 @@ sg.theme('Reddit')
 def CalcularIMC(alturaEmCentimetros, peso):
     alturaEmMetros = alturaEmCentimetros/100
     imc = peso / alturaEmMetros ** 2
-    return "%.2f" % imcmain
+    return "%.2f" % imc
 
 def InformarSituacao(imc):
     if imc < 17:
