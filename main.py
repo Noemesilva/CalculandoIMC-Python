@@ -11,13 +11,14 @@ def RegistrarDados():
 
     c = conexao.cursor()
 
-    c.execute("INSERT INTO paciente (nome, endereco, peso, altura, resultadoIMC) VALUES (:nome, :endereco, :peso, :altura, :resultadoIMC)",
+    c.execute("INSERT INTO paciente (nome, endereco, peso, altura, resultadoIMC, situacao) VALUES (:nome, :endereco, :peso, :altura, :resultadoIMC, :situacao)",
               {
                   'nome': valores['nome'],
                   'endereco': valores['endereco'],
                   'peso': valores['peso'],
                   'altura': valores['altura'],
-                  'resultadoIMC': resultado
+                  'resultadoIMC': resultado,
+                  'situacao': situacao
               }
               )
 
