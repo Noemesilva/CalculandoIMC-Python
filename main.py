@@ -1,7 +1,28 @@
 import re
 from PySimpleGUI import PySimpleGUI as sg
+import sqlite3
+from random import randint
+
 
 sg.theme('Reddit')
+
+def RegistrarDados():
+    conexao = sqlite3.connect('calculo_imc.db')
+
+    c = conexao.cursor()
+
+    c.execute("INSERT INTO paciente (nome, endereco, peso, altura, resultadoIMC) VALUES (:nome, :endereco, :peso, :altura, :resultadoIMC)",
+              {
+                  'nome': valores['nome'],
+                  'endereco': valores['endereco'],
+                  'peso': valores['peso'],
+                  'altura': valores['altura'],
+                  'resultadoIMC': resultado
+              }
+              )
+
+    conexao.commit()
+    conexao.close()
 
 def CalcularIMC(alturaEmCentimetros, peso):
     alturaEmMetros = alturaEmCentimetros/100
@@ -80,8 +101,10 @@ while True:
         resultado = CalcularIMC(float(valores['altura']), float(valores['peso']))
         situacao = InformarSituacao(float(resultado))
         janela['resultado'].update(f"{valores['nome']} seu IMC é: {resultado}\nSua situação é: {situacao}")
+        RegistrarDados()
 
     if eventos == "Reiniciar":
         Reiniciar()
+
 
 janela.close()
